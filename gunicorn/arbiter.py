@@ -495,8 +495,7 @@ class Arbiter(object):
         """
         if not self.timeout:
             return
-        workers = list(self.WORKERS.items())
-        for (pid, worker) in workers:
+        for (pid, worker) in self.WORKERS.items():
             try:
                 if time.time() - worker.tmp.last_update() <= self.timeout:
                     continue
@@ -627,8 +626,7 @@ class Arbiter(object):
         Kill all workers with the signal `sig`
         :attr sig: `signal.SIG*` value
         """
-        worker_pids = list(self.WORKERS.keys())
-        for pid in worker_pids:
+        for pid in self.WORKERS:
             self.kill_worker(pid, sig)
 
     def kill_worker(self, pid, sig):
