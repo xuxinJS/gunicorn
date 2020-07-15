@@ -539,6 +539,19 @@ def get_default_config_file():
         return config_path
     return None
 
+class SockPriority(Setting):
+    name = "sock_priority"
+    section = "Socket Priority"
+    cli = ["--sock-priority"]
+    meta = "INT"
+    validator = validate_pos_int
+    type = int
+    default = 1
+    desc = """\
+        Socket Priority
+        1 lowest
+        6 highest
+        """
 
 class ConfigFile(Setting):
     name = "config"

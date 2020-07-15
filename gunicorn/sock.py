@@ -37,6 +37,9 @@ class BaseSocket(object):
         return getattr(self.sock, name)
 
     def set_options(self, sock, bound=False):
+        if self.conf.sock_priority:
+            self.log.info("Socket Priority: %s", str(self.conf.sock_priority))
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_PRIORITY, self.conf.sock_priority)
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         if (self.conf.reuse_port
             and hasattr(socket, 'SO_REUSEPORT')):  # pragma: no cover
